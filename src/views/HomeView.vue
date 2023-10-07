@@ -88,7 +88,21 @@ onMounted(fetchForecast)
             <div
                 class="p-4 border border-gray-600 rounded-md transition-all duration-200 flex flex-col items-center justify-center">
                 <div>
-                    <p class="font-medium text-xl">Feels like {{ items.current.feelslike_c }}°C</p>
+                    <div class="flex row">
+                        <p class="font-medium text-xl mr-1">Feels like</p>
+                        <p v-if="items.current.feelslike_c >= 31" class="font-medium text-xl text-red-400">{{
+                            " " + items.current.feelslike_c }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 28" class="font-medium text-xl text-orange-400">{{
+                            " " + items.current.feelslike_c }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 24" class="font-medium text-xl text-yellow-400">{{
+                            " " + items.current.feelslike_c }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 16" class="font-medium text-xl text-emerald-400">{{
+                            " " + items.current.feelslike_c }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 10" class="font-medium text-xl text-sky-400">{{
+                            " " + items.current.feelslike_c }}°C</p>
+                        <p v-else class="font-medium text-xl text-blue-400">{{
+                            " " + items.current.feelslike_c }}°C</p>
+                    </div>
                     <p class="font-medium text-xl">Humidity {{ items.current.humidity }}%</p>
                     <p class="font-medium text-xl">UV Index {{ items.current.uv }}</p>
                 </div>
@@ -106,11 +120,11 @@ onMounted(fetchForecast)
             </div>
             <div
                 class="p-4 border border-gray-600 rounded-md transition-all duration-200 flex flex-col items-center justify-center">
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Wind</p>
+                <p class="mt-2 px-2 text-base font-medium text-teal-400">Wind</p>
                 <p>{{ items.current.wind_kph }} KM/H</p>
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Gusts</p>
+                <p class="mt-2 px-2 text-base font-medium text-teal-400">Gusts</p>
                 <p>{{ items.current.gust_kph }} KM/H</p>
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Direction</p>
+                <p class="mt-2 px-2 text-base font-medium text-teal-400">Direction</p>
                 <div class="flex">
                     <p class="text-xl">{{ items.current.wind_dir }}-</p>
                     <p class="text-xl">{{ items.current.wind_degree }}°</p>
@@ -123,7 +137,7 @@ onMounted(fetchForecast)
                 <p class="mt-2 px-2 text-base font-medium text-sky-400">Pressure</p>
                 <p>{{ items.current.pressure_mb }} mbar</p>
                 <p class="mt-2 px-2 text-base font-medium text-sky-400">Precipitation</p>
-                <p>{{ items.current.precip_mm }} MM</p>
+                <p class="text-blue-400 font-medium">{{ items.current.precip_mm }} MM</p>
             </div>
 
         </div>
