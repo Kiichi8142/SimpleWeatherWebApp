@@ -67,42 +67,55 @@ onMounted(fetchForecast)
     <div v-if="items" class="max-w-4xl mx-auto">
         <div class="relative flex">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                class="w-5 h-5 text-sky-600 top-1/2 transform -translate-y-1/2 left-5 absolute">
+                class="w-5 h-5 text-neutral-500 top-1/2 transform -translate-y-1/2 left-5 absolute">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
             <input id="inputLocation" v-model.lazy="location"
-                class="bg-gray-800 flex-grow rounded-md text-sky-500 ml-4 mr-4 pl-7 font-medium text-xl" type="text">
+                class="py-1 bg-neutral-800 flex-grow rounded-md text-neutral-500 ml-4 mr-4 pl-7 font-medium text-xl"
+                type="text">
         </div>
-        <div class="grid grid-cols-2 gap-2 px-4 mt-4 text-slate-100">
-            <div class="p-4 border border-gray-600 rounded-md transition-all duration-200 flex flex-col">
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Today</p>
-                <div class="flex flex-col items-center">
-                    <img :src="items.current.condition.icon" alt="" width="64" height="64">
-                    <p class="font-medium text-xl">{{ items.current.temp_c }}°C</p>
-                    <p class="text-xl">{{ daysOfWeek[new Date(items.current.last_updated).getDay()] }}</p>
+        <div class="grid grid-cols-2 gap-2 p-4 text-slate-100">
+            <div class="p-4 border border-gray-600 rounded-md flex flex-col justify-center">
+                <div class="flex flex-row gap-x-4 items-center justify-center">
+                    <img class="object-contain" :src="items.current.condition.icon" alt="" width="64" height="64">
+                    <div class="flex flex-col">
+                        <p class="font-medium text-gray-50 text-5xl">{{ items.current.temp_c }}°C</p>
+                        <p class="text-gray-300 text-lg font-medium self-start">{{ daysOfWeek[new
+                            Date(items.current.last_updated).getDay()] }}</p>
+                    </div>
                 </div>
             </div>
-            <div
-                class="p-4 border border-gray-600 rounded-md transition-all duration-200 flex flex-col items-center justify-center">
+            <div class="p-4 border border-gray-600 rounded-md flex flex-col items-center justify-center">
                 <div>
-                    <div class="flex row">
-                        <p class="font-medium text-xl mr-1">Feels like</p>
-                        <p v-if="items.current.feelslike_c >= 31" class="font-medium text-xl text-red-400">{{
-                            " " + items.current.feelslike_c }}°C</p>
-                        <p v-else-if="items.current.feelslike_c >= 28" class="font-medium text-xl text-orange-400">{{
-                            " " + items.current.feelslike_c }}°C</p>
-                        <p v-else-if="items.current.feelslike_c >= 24" class="font-medium text-xl text-yellow-400">{{
-                            " " + items.current.feelslike_c }}°C</p>
-                        <p v-else-if="items.current.feelslike_c >= 16" class="font-medium text-xl text-emerald-400">{{
-                            " " + items.current.feelslike_c }}°C</p>
-                        <p v-else-if="items.current.feelslike_c >= 10" class="font-medium text-xl text-sky-400">{{
-                            " " + items.current.feelslike_c }}°C</p>
-                        <p v-else class="font-medium text-xl text-blue-400">{{
-                            " " + items.current.feelslike_c }}°C</p>
+                    <div class="flex flex-col md:flex-row transition-all duration-200">
+                        <p class="font-medium text-gray-50 text-4xl mr-2">Feels like
+                        </p>
+                        <p v-if="items.current.feelslike_c >= 30" class="font-medium text-4xl text-orange-500">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 25" class="font-medium text-4xl text-orange-400">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 22" class="font-medium text-4xl text-yellow-400">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 18" class="font-medium text-4xl text-green-400">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 14" class="font-medium text-4xl text-green-300">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 10" class="font-medium text-4xl text-sky-300">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
+                        <p v-else-if="items.current.feelslike_c >= 7" class="font-medium text-4xl text-blue-400">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
+                        <p v-else class="font-medium text-4xl text-blue-500">{{
+                            items.current.feelslike_c.toFixed(0)
+                        }}°C</p>
                     </div>
-                    <p class="font-medium text-xl">Humidity {{ items.current.humidity }}%</p>
-                    <p class="font-medium text-xl">UV Index {{ items.current.uv }}</p>
                 </div>
             </div>
             <div v-if="forecast" class="p-2 flex flex-col border border-gray-600 rounded-md col-span-2">
@@ -112,7 +125,7 @@ onMounted(fetchForecast)
                         v-for="(item, key) in forecast.forecast.forecastday[0].hour" v-bind:key="key">
                         <p class="text-xl">{{ key }}</p>
                         <img class="m-2 w-12 h-12 object-cover" :src="item.condition.icon" alt="">
-                        <p>{{ (item.temp_c).toFixed(0) }}</p>
+                        <p>{{ (item.temp_c).toFixed(0) }}°</p>
                     </div>
                 </div>
             </div>
