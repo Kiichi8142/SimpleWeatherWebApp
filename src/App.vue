@@ -25,14 +25,14 @@ onMounted(fetchWeather)
 
 <template>
   <header class="flex flex-col p-8 text-white items-center">
-    <div v-if="items" class="flex items-center">
-      <img alt=" Vue logo" class="m-8" :src="items.current.condition.icon" width="64" height="64">
+    <div v-if="items" class="flex items-center m-8 gap-x-4">
+      <img alt=" Vue logo" class="" :src="items.current.condition.icon" width="64" height="64">
       <p class="font-medium text-xl">A simple weather website</p>
     </div>
     <div>
       <nav class="flex flex-row gap-8">
         <RouterLink class="p-4 font-medium hover:border-b hover:border-sky-500" active-class="p-4 border-b border-sky-500"
-          to="/">Home
+          to="/">Current
         </RouterLink>
         <RouterLink class="p-4 font-medium hover:border-b hover:border-sky-500" active-class="p-4 border-b border-sky-500"
           to="/history">History</RouterLink>

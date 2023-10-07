@@ -5,6 +5,8 @@ import { ref, onMounted } from 'vue'
 
 const route = useRoute()
 
+const date = route.params.date
+
 const items = ref()
 const apiKey = import.meta.env.VITE_WEATHER_API_KEY
 
@@ -23,12 +25,13 @@ function fetchSearchWeather() {
     })
 }
 
-onMounted(fetchSearchWeather)
+onMounted()
 
 </script>
 
 <template>
     <div class="text-white flex flex-col items-center justify-center">
+        <p>Detail page</p>
         <div v-if="items" class="flex flex-col max-w-3xl w-full">
             <p class="p-4 font-semibold self-center text-4xl">A weather forecast in {{
                 items.forecast.forecastday.length }} days</p>
