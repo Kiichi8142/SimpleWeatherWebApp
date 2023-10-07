@@ -44,7 +44,6 @@ function fetchWeather() {
     }
 
     axios.get(baseURL + endpoints, { params }).then((response) => {
-        //console.log(response.data)
         items.value = response.data
         location.value = '#' + response.data.location.name + ', ' + response.data.location.country
         updateInput(location.value)

@@ -18,7 +18,6 @@ function fetchWeather() {
         q: location.value,
     }
     axios.get(baseURL + 'current.json', { params }).then((response) => {
-        console.log(response.data)
         items.value = response.data
         location.value = '#' + response.data.location.name + ', ' + response.data.location.country
         updateInput(location.value)
@@ -34,7 +33,6 @@ function fetchForecast() {
         days: 1
     }
     axios.get(baseURL + 'forecast.json', { params }).then((response) => {
-        console.log(response.data)
         forecast.value = response.data
         location.value = '#' + response.data.location.name + ', ' + response.data.location.country
         updateInput(location.value)
