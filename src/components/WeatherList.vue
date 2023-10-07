@@ -9,7 +9,7 @@ const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Fri
 const items = ref()
 const apiKey = import.meta.env.VITE_WEATHER_API_KEY
 
-const baseURL = "http://api.weatherapi.com/v1/"
+const baseURL = "https://api.weatherapi.com/v1/"
 
 const location = ref('Chiang Mai')
 
