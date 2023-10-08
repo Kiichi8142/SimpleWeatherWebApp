@@ -33,6 +33,7 @@ function fetchForecast() {
         days: 1
     }
     axios.get(baseURL + 'forecast.json', { params }).then((response) => {
+        console.log(response.data)
         forecast.value = response.data
         location.value = '#' + response.data.location.name + ', ' + response.data.location.country
         updateInput(location.value)
@@ -75,21 +76,21 @@ onMounted(fetchForecast)
                 class="py-1 bg-neutral-800 flex-grow rounded-md text-neutral-500 ml-4 mr-4 pl-7 font-medium text-xl"
                 type="text">
         </div>
-        <div class="grid grid-cols-2 gap-2 p-4 text-slate-100">
-            <div class="p-4 border border-gray-600 rounded-md flex flex-col justify-center">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 text-slate-100">
+            <div class="p-4 col-span-2 md:col-span-1 border border-neutral-600 rounded-md flex flex-col justify-center">
                 <div class="flex flex-row gap-x-4 items-center justify-center">
                     <img class="object-contain" :src="items.current.condition.icon" alt="" width="64" height="64">
                     <div class="flex flex-col">
                         <p class="font-medium text-gray-50 text-5xl">{{ items.current.temp_c }}°C</p>
-                        <p class="text-gray-300 text-lg font-medium self-start">{{ daysOfWeek[new
+                        <p class="text-neutral-600 text-lg font-medium self-start">{{ daysOfWeek[new
                             Date(items.current.last_updated).getDay()] }}</p>
                     </div>
                 </div>
             </div>
-            <div class="p-4 border border-gray-600 rounded-md flex flex-col items-center justify-center">
+            <div class="p-4 border border-neutral-600 rounded-md flex flex-col items-center justify-center">
                 <div>
                     <div class="flex flex-col md:flex-row transition-all duration-200">
-                        <p class="font-medium text-gray-50 text-4xl mr-2">Feels like
+                        <p class="font-medium text-gray-50 text-4xl mr-2">Feels
                         </p>
                         <p v-if="items.current.feelslike_c >= 30" class="font-medium text-4xl text-orange-500">{{
                             items.current.feelslike_c.toFixed(0)
@@ -118,7 +119,15 @@ onMounted(fetchForecast)
                     </div>
                 </div>
             </div>
-            <div v-if="forecast" class="p-2 flex flex-col border border-gray-600 rounded-md col-span-2">
+            <div class="p-4 border border-neutral-600 rounded-md flex flex-col justify-center">
+                <div class="flex flex-row gap-x-4 items-center justify-center">
+                    <div class="flex flex-col">
+                        <p class="font-medium text-gray-50 text-5xl">{{ items.current.humidity }}%</p>
+                        <p class="text-neutral-600 text-lg font-medium self-start">Humidity</p>
+                    </div>
+                </div>
+            </div>
+            <div v-if="forecast" class="p-2 flex flex-col border border-neutral-600 rounded-md col-span-2">
                 <p class="mt-2 px-2 text-base font-medium text-sky-400">Forecast hourly</p>
                 <div class="mt-2 flex overflow-hidden hover:overflow-auto">
                     <div class="flex flex-col shrink-0 items-center text-xl font-medium"
@@ -129,20 +138,33 @@ onMounted(fetchForecast)
                     </div>
                 </div>
             </div>
-            <div
-                class="p-4 border border-gray-600 rounded-md transition-all duration-200 flex flex-col items-center justify-center">
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Wind</p>
-                <p>{{ items.current.wind_kph }} KM/H</p>
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Gusts</p>
-                <p>{{ items.current.gust_kph }} KM/H</p>
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Direction</p>
-                <div class="flex">
-                    <p class="text-xl">{{ items.current.wind_dir }}-</p>
-                    <p class="text-xl">{{ items.current.wind_degree }}°</p>
+            <div class="p-4 col-span-1 border border-neutral-600 rounded-md flex flex-col justify-center">
+                <div class="flex items-center justify-center">
+                    <p class="font-semibold text-neutral-50 text-6xl mr-2">{{ items.current.wind_kph }}</p>
+                    <div class="flex flex-col">
+                        <p class="font-medium text-neutral-600 text-xl">km/h</p>
+                        <p class="text-green-600 text-base font-medium self-start">wind speed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 col-span-1 border border-neutral-600 rounded-md flex flex-col justify-center">
+                <div class="flex items-center justify-center">
+                    <div class="flex flex-col">
+                        <p class="font-semibold text-neutral-400 text-xl">Wind blowing</p>
+                        <div class="flex">
+                            <p class="font-semibold text-5xl text-neutral-50 mr-2">{{ items.current.wind_dir }}</p>
+                            <div class="flex flex-col">
+                                <p class="text-neutral-600 text-base font-medium">at a degree
+                                </p>
+                                <p class="text-neutral-600 text-base font-medium">{{ items.current.wind_degree }}°
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div
-                class="p-4 border border-gray-600 rounded-md transition-all duration-200 flex flex-col items-center justify-center">
+                class="p-4 border border-neutral-600 rounded-md transition-all duration-200 flex flex-col items-center justify-center">
                 <p class="mt-2 px-2 text-base font-medium text-sky-400">Visibility</p>
                 <p>{{ items.current.vis_km }} KM</p>
                 <p class="mt-2 px-2 text-base font-medium text-sky-400">Pressure</p>

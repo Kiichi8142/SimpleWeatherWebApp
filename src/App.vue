@@ -31,13 +31,13 @@ onMounted(fetchWeather)
     </div>
     <div>
       <nav class="flex flex-row gap-8">
-        <RouterLink class="p-4 font-medium hover:border-b hover:border-sky-500" active-class="p-4 border-b border-sky-500"
-          to="/">Current
+        <RouterLink class="p-4 font-medium text-neutral-400 hover:border-b hover:border-sky-500 hover:text-sky-500"
+          active-class="active-link" to="/">Current
         </RouterLink>
-        <RouterLink class="p-4 font-medium hover:border-b hover:border-sky-500" active-class="p-4 border-b border-sky-500"
-          to="/history">History</RouterLink>
-        <RouterLink class="p-4 font-medium hover:border-b hover:border-sky-500" active-class="p-4 border-b border-sky-500"
-          to="/forecast">Forecast
+        <RouterLink class="p-4 font-medium text-neutral-400 hover:border-b hover:border-sky-500"
+          active-class="active-link" to="/history">History</RouterLink>
+        <RouterLink class="p-4 font-medium text-neutral-400 hover:border-b hover:border-sky-500"
+          active-class="active-link" to="/forecast">Forecast
         </RouterLink>
       </nav>
     </div>
@@ -45,3 +45,9 @@ onMounted(fetchWeather)
 
   <RouterView />
 </template>
+
+<style>
+.active-link {
+  @apply p-4 border-b border-sky-500 text-sky-500;
+}
+</style>
