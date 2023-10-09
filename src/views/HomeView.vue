@@ -33,7 +33,6 @@ function fetchForecast() {
         days: 1
     }
     axios.get(baseURL + 'forecast.json', { params }).then((response) => {
-        console.log(response.data)
         forecast.value = response.data
         location.value = '#' + response.data.location.name + ', ' + response.data.location.country
         updateInput(location.value)
@@ -65,6 +64,11 @@ onMounted(fetchForecast)
 </script>
 
 <template>
+    <div v-if="!items" class="flex flex-col max-w-4xl mx-auto w-full">
+        <div class="p-8 flex justify-center">
+            <p class="text-neutral-600 font-medium text-xl">I'm trying to get the data for you please wait. ;w;</p>
+        </div>
+    </div>
     <div v-if="items" class="max-w-4xl mx-auto">
         <div class="relative flex">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"

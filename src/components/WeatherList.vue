@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios'
-import { ref, onMounted, watch, defineProps } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 const props = defineProps(['type'])
 
@@ -30,7 +30,7 @@ function fetchWeather() {
             break;
         case 'history':
             endpoints = 'history.json';
-            end_dt.setDate(end_dt.getDate() - 5)
+            end_dt.setDate(end_dt.getDate() - 4)
             params = {
                 key: apiKey,
                 q: location.value,
@@ -62,6 +62,7 @@ function updateInput(formatLocation) {
 watch(location, (newMessage) => {
     if (!newMessage.includes('#')) {
         if (newMessage) {
+            items.value = ''
             fetchWeather()
         } else {
             location.value = 'Chiang Mai'
@@ -73,22 +74,28 @@ onMounted(fetchWeather)
 </script>
 
 <template>
+    <div v-if="!items" class="flex flex-col max-w-4xl w-full">
+        <div class="p-8 flex justify-center">
+            <p class="text-neutral-600 font-medium text-xl">I'm trying to get the data for you please wait. ;w;</p>
+        </div>
+    </div>
     <div v-if="items" class="flex flex-col max-w-4xl w-full">
         <p v-if="type === 'history'" class="p-4 font-semibold self-center text-4xl">Last weather in 5 days</p>
-        <p v-if="type === 'forecast'" class="p-4 font-semibold self-center text-4xl">{{
+        <p v-if="type === 'forecast'" class="p-4 font-semibold self-center text-neutral-500 text-4xl">{{
             items.forecast.forecastday.length }}-days forecast</p>
         <div class="relative flex">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                class="w-5 h-5 text-sky-600 top-1/2 transform -translate-y-1/2 left-5 absolute">
+                class="w-5 h-5 text-neutral-500 top-1/2 transform -translate-y-1/2 left-5 absolute">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
             <input id="inputLocation" v-model.lazy="location"
-                class="bg-gray-800 flex-grow rounded-md text-sky-500 ml-4 mr-4 pl-7 font-medium text-xl" type="text">
+                class="py-1 bg-neutral-800 flex-grow rounded-md text-neutral-500 ml-4 mr-4 pl-7 font-medium text-xl"
+                type="text">
         </div>
-        <p v-if="type === 'forecast'" class="text-gray-400 px-4">Weather forecast</p>
-        <p v-if="type === 'history'" class="text-gray-400 px-4">Weather history</p>
-        <div class="group m-4 px-4 py-4 grid grid-cols-3 md:h-32 items-center transition-all duration-200 border border-gray-600 rounded-md gap-x-4 hover:border-gray-800 hover:bg-gray-800"
+        <p v-if="type === 'forecast'" class="text-neutral-600 px-4">Weather forecast</p>
+        <p v-if="type === 'history'" class="text-neutral-600 px-4">Weather history</p>
+        <div class="group m-4 px-4 py-4 grid grid-cols-3 md:h-32 items-center transition-all duration-200 border border-neutral-600 rounded-md gap-x-4 hover:border-gray-800 hover:bg-gray-800"
             v-for="(data, key) in items.forecast.forecastday.slice().reverse()" v-bind:key="key">
             <div class="flex flex-col items-center">
                 <img :src="data.day.condition.icon" alt="" width="64" height="64">
