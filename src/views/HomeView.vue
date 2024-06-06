@@ -71,7 +71,8 @@ onMounted(fetchForecast)
     </div>
     <div v-if="items" class="max-w-4xl mx-auto">
         <div class="relative flex">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor"
                 class="w-5 h-5 text-neutral-500 top-1/2 transform -translate-y-1/2 left-5 absolute">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -131,17 +132,6 @@ onMounted(fetchForecast)
                     </div>
                 </div>
             </div>
-            <div v-if="forecast" class="p-2 flex flex-col border border-neutral-600 rounded-md col-span-2">
-                <p class="mt-2 px-2 text-base font-medium text-sky-400">Forecast hourly</p>
-                <div class="mt-2 flex overflow-hidden hover:overflow-auto">
-                    <div class="flex flex-col shrink-0 items-center text-xl font-medium"
-                        v-for="(item, key) in forecast.forecast.forecastday[0].hour" v-bind:key="key">
-                        <p class="text-xl">{{ key }}</p>
-                        <img class="m-2 w-12 h-12 object-cover" :src="item.condition.icon" alt="">
-                        <p>{{ (item.temp_c).toFixed(0) }}°</p>
-                    </div>
-                </div>
-            </div>
             <div class="p-4 col-span-1 border border-neutral-600 rounded-md flex flex-col justify-center">
                 <div class="flex items-center justify-center">
                     <p class="font-semibold text-neutral-50 text-6xl mr-2">{{ items.current.wind_kph }}</p>
@@ -176,7 +166,17 @@ onMounted(fetchForecast)
                 <p class="mt-2 px-2 text-base font-medium text-sky-400">Precipitation</p>
                 <p class="text-blue-400 font-medium">{{ items.current.precip_mm }} MM</p>
             </div>
-
+            <div v-if="forecast" class="p-2 flex flex-col border border-neutral-600 rounded-md col-span-3">
+                <p class="mt-2 px-2 text-base font-medium text-sky-400">Forecast hourly</p>
+                <div class="mt-2 flex overflow-hidden hover:overflow-auto">
+                    <div class="flex flex-col shrink-0 items-center text-xl font-medium"
+                        v-for="(item, key) in forecast.forecast.forecastday[0].hour" v-bind:key="key">
+                        <p class="text-xl">{{ key }}</p>
+                        <img class="m-2 w-12 h-12 object-cover" :src="item.condition.icon" alt="">
+                        <p>{{ (item.temp_c).toFixed(0) }}°</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
